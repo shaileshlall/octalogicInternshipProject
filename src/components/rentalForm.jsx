@@ -30,6 +30,7 @@ export default function MultiStepForm() {
 
   useEffect(() => {
     if (!formData.model) return;
+    console.log(formData.model,"HULULULU");
     axios
       .get(
         `https://octalogic-test-frontend.vercel.app/api/v1/bookings/${formData.model}`
