@@ -183,7 +183,7 @@ export default function MultiStepForm() {
                   }
                   className="mr-2"
                 />
-                {opt.title}
+                {opt.type}
               </label>
             ))}
           </div>
