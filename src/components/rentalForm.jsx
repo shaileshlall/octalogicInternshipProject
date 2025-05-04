@@ -30,7 +30,7 @@ export default function MultiStepForm() {
 
   useEffect(() => {
     if (!formData.model) return;
-    console.log(formData.model,"HULULULU");
+    console.log(formData.model, "HULULULU");
     axios
       .get(
         `https://octalogic-test-frontend.vercel.app/api/v1/bookings/${formData.model}`
@@ -110,8 +110,8 @@ export default function MultiStepForm() {
     <div className="form-container">
       <form>
         {step === 1 && (
-          <div>
-            <label className="block mb-2 font-semibold">
+          <div className="form-group">
+            <label className="heading block mb-2 font-semibold">
               What is your name?
             </label>
             <div className="input-container flex gap-2">
@@ -122,7 +122,7 @@ export default function MultiStepForm() {
                 onChange={(e) =>
                   setFormData({ ...formData, firstName: e.target.value })
                 }
-                className="flex-1 p-2 border rounded"
+                className="flex-1 p-2 border rounded-pill border-1 border-transparent"
               />
               <input
                 type="text"
@@ -131,7 +131,7 @@ export default function MultiStepForm() {
                 onChange={(e) =>
                   setFormData({ ...formData, lastName: e.target.value })
                 }
-                className="flex-1 p-2 border rounded"
+                className="flex-1 p-2 border rounded-pill border-1 border-transparent"
               />
             </div>
           </div>
@@ -139,8 +139,9 @@ export default function MultiStepForm() {
 
         {step === 2 && (
           <div>
-            <label className="block mb-2 font-semibold">Number of wheels</label>
-            <label className="block">
+            <label className="heading d-flex mb-2 font-semibold justify-content-center">Number of wheels</label>
+            <div className="d-flex gap-2 mb-2 container justify-content-center">
+            <label className="d-flex gap-2 fs-5">
               <input
                 type="radio"
                 name="wheels"
@@ -149,11 +150,11 @@ export default function MultiStepForm() {
                 onChange={() =>
                   setFormData({ ...formData, wheels: 2, type: "", model: "" })
                 }
-                className="mr-2"
+                className="d-flex gap-2 fs-5"
               />
               2 Wheeler
             </label>
-            <label className="block">
+            <label className="d-flex gap-2 fs-5">
               <input
                 type="radio"
                 name="wheels"
@@ -162,18 +163,19 @@ export default function MultiStepForm() {
                 onChange={() =>
                   setFormData({ ...formData, wheels: 4, type: "", model: "" })
                 }
-                className="mr-2"
+                className="d-flex gap-2 fs-5"
               />
               4 Wheeler
             </label>
+            </div>
           </div>
         )}
 
         {step === 3 && (
           <div>
-            <label className="block mb-2 font-semibold">Type of vehicle</label>
+            <label className="heading block mb-2 font-semibold">Type of vehicle</label>
             {filteredVehicleTypes.map((opt) => (
-              <label key={opt.id} className="block">
+              <label key={opt.id} className="d-flex gap-2 mb-2 justify-content-center fs-5">
                 <input
                   type="radio"
                   name="type"
@@ -182,7 +184,7 @@ export default function MultiStepForm() {
                   onChange={() =>
                     setFormData({ ...formData, type: opt.id, model: "" })
                   }
-                  className="mr-2"
+                  className="d-flex gap-2 fs-5"
                 />
                 {opt.type}
               </label>
@@ -192,16 +194,17 @@ export default function MultiStepForm() {
 
         {step === 4 && (
           <div>
-            <label className="block mb-2 font-semibold">Specific Model</label>
+            <label className="heading d-block justify-content-center mb-2 font-semibold">Specific Model</label>
             {modelOptions.map((opt) => (
-              <label key={opt.id} className="flex items-center mb-2">
+              <div className="d-flex gap-2 justify-content-center fs-5 mb-2">
+              <label key={opt.id} className="d-flex gap-2 mb-2 fs-5">
                 <input
                   type="radio"
                   name="model"
                   value={opt.id}
                   checked={formData.model === opt.id}
                   onChange={() => setFormData({ ...formData, model: opt.id })}
-                  className="mr-2"
+                  className="mt-1"
                 />
                 {opt.image && (
                   <img
@@ -212,13 +215,17 @@ export default function MultiStepForm() {
                 )}
                 {opt.name}
               </label>
+              </div>
             ))}
           </div>
         )}
 
-{step === 5 && (
-          <div>
-            <label className="block mb-2 font-semibold">Select Date Range</label>
+        {step === 5 && (
+          <div className="text-center">
+            <label className="heading d-block mb-2 font-semibold">
+              Select Date Range
+              </label>
+            
             <DateRange
               editableDateInputs={true}
               onChange={(item) =>
@@ -242,17 +249,12 @@ export default function MultiStepForm() {
 
         {error && <p className="text-red-500 mt-2">{error}</p>}
 
-        <button
-          type="button"
-          onClick={handleNext}
-          className="input-btn mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          {step < 5 ? "Next" : "Submit"}
-        </button>
+        <div className="button-container">
+          <button type="button" onClick={handleNext} className="input-btn fw-bold mb-2 py-1">
+            {step < 5 ? "Next" : "Submit"}
+          </button>
+        </div>
       </form>
     </div>
   );
 }
-
-
- 
